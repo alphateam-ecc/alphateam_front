@@ -7,6 +7,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 export default function Setting() {
   return (
     <View style = {styles.container}>
+
         <View style = {styles.setting}>
             <View style = {styles.iconContainer}>
                 <MaterialIcons name="eco" size={24} color="#81A88B"  />
@@ -14,8 +15,8 @@ export default function Setting() {
             <Text style = {styles.settingText}>赤ちゃん</Text>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-          <Gauge value={25} unit="°C" label="温度" max={60} />
-          <Gauge value={85} unit="%" label="湿度" max={100} />
+          <Gauge value={30} unit="°C" label="温度" max={60} />
+          <Gauge value={90} unit="%" label="湿度" max={100} />
         </View>
     </View>
   );

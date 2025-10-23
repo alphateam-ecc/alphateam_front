@@ -3,16 +3,16 @@ import { View, Text, StyleSheet } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 
 const Gauge = ({ value = 25, unit = '°C', label = '温度', max = 40 }) => {
-  const size = 180; // 円のサイズ
+  const size = 160; // 円のサイズ
   const strokeWidth = 15;
   const radius = (size - strokeWidth) / 2;
-  const angle = 225;
-  const circumference = 2 *  radius * Math.PI * (angle /360); // 半円
+  const angle = 270;
+  const circumference = 2*  radius * Math.PI * (angle /360); // 半円
   const progress = (value / max) * circumference;
 
   return (
     <View style={styles.container}>
-      <Svg width={size} height={size / 2}>
+      <Svg width={size} height={size}>
         {/* 背景半円 */}
         <Circle
           cx={size / 2}
@@ -24,7 +24,7 @@ const Gauge = ({ value = 25, unit = '°C', label = '温度', max = 40 }) => {
           fill="none"
           strokeDasharray={`${circumference}, ${circumference}`}
           strokeDashoffset={0}
-          rotation={-180}
+          rotation={135}
           origin={`${size / 2}, ${size / 2}`}
         />
 
@@ -38,8 +38,8 @@ const Gauge = ({ value = 25, unit = '°C', label = '温度', max = 40 }) => {
           strokeLinecap="round"
           fill="none"
           strokeDasharray={`${circumference}, ${circumference}`}
-          strokeDashoffset={circumference - progress}
-          rotation={-180}
+          strokeDashoffset={circumference * (1 -value /max)}
+          rotation={135}
           origin={`${size / 2}, ${size / 2}`}
         />
       </Svg>
@@ -64,8 +64,9 @@ const styles = StyleSheet.create({
   },
   textWrapper: {
     position: 'absolute',
-    top: 60,
+    top: 30,
     alignItems: 'center',
+
   },
   label: {
     color: '#fff',
