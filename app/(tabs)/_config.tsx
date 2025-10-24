@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 
 import Gauge from '@/components/gauge';
+import Sliderform from '@/components/sliderForm';
+
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export default function Setting() {
@@ -18,6 +20,7 @@ export default function Setting() {
           <Gauge value={30} unit="°C" label="温度" max={60} />
           <Gauge value={90} unit="%" label="湿度" max={100} />
         </View>
+        <Sliderform></Sliderform>
     </View>
   );
 }
@@ -26,7 +29,7 @@ const styles  = StyleSheet.create({
     container: {
     paddingHorizontal:30,
     flex: 1,            // 画面いっぱいに広げる
-    backgroundColor: '#DCEADE',
+    backgroundColor: '#9DC0B2',
   },
   setting: {
     flexDirection:'row',
