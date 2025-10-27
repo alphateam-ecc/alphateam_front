@@ -20,7 +20,12 @@ export default function Setting() {
           <Gauge value={30} unit="°C" label="温度" max={60} />
           <Gauge value={90} unit="%" label="湿度" max={100} />
         </View>
-        <Sliderform></Sliderform>
+        <Sliderform
+          label='温度'
+          unit='℃'
+          min={17}
+          max={35}
+        ></Sliderform>
     </View>
   );
 }
