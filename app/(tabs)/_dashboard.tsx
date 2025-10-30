@@ -1,6 +1,8 @@
-import React from "react";
+import {useState,useEffect} from "react";
 import { Text , View,StyleSheet } from "react-native";
 import Gauge from "@/components/gauge";
+
+import { VictoryTheme } from 'victory-core';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -19,6 +21,7 @@ export default function Dashboard(){
                 <Text>現在のCO2濃度</Text>
                 <Text>810ppm</Text>
             </View>
+            
         </LinearGradient>
     )
 }
