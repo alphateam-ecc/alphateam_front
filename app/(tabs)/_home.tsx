@@ -6,6 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 //import Chart from "@/components/chart";
 import { router } from "expo-router";
 
+
 export default function Dashboard(){
     return(
         <LinearGradient

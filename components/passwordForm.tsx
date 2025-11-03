@@ -57,6 +57,12 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         alignItems:"center",
     },
+    label:{
+        fontSize:14,
+        paddingLeft:4,
+        paddingBottom:7,
+        fontWeight:"600",
+    },
     input:{
         width:"100%",
         position:"relative",

@@ -5,6 +5,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from "rea
 import Form from "@/components/form"; 
 import PasswordForm from "@/components/passwordForm";
 import Button from "@/components/button"; 
+import { router } from "expo-router";
 
 export default function Signup() {
     // 1. Define state for all input fields (すべての入力フィールドの状態を定義)
@@ -54,16 +55,13 @@ export default function Signup() {
                 
                 {/* The main action button (主要なアクションボタン) - Functional */}
                 <Button 
-                    buttonValue="新規登録" 
+                    buttonValue="新規登録"
+                    onPress={() => router.replace("/login")} 
+                    
                 />
 
                 {/* Link back to the login page (ログインページへのリンク) - Styled and Functional */}
-                <View style={styles.linkContainer}>
-                    <Text style={styles.baseLinkText}>アカウントをお持ちですか?</Text> 
-                    <TouchableOpacity onPress={() => console.log('Navigate to Login Screen')}>
-                        <Text style={styles.greenLinkText}>新規登録</Text>
-                    </TouchableOpacity>
-                </View>
+                <Text style={styles.baseLinkText}>アカウントをお持ちですか?<Text style={styles.greenLinkText} onPress={() => router.replace("/login")}>新規登録</Text></Text> 
             </View>
         </ScrollView>
     )
@@ -101,14 +99,14 @@ const styles = StyleSheet.create({
     },
     // Base style for the preceding gray text (先行する灰色のテキストの基本スタイル)
     baseLinkText: {
-        color: 'gray',
+        textAlign:"center",
+        paddingTop:16,
+        color: '#1F1F1F',
         fontSize: 14,
         marginRight: 4, // Small space between the gray and green text (灰色と緑のテキストの間に小さなスペース)
     },
     // Style for the "新規登録" link text, making it green (緑色のリンクテキストのスタイル。「新規登録」を緑色にする)
     greenLinkText: {
         color: '#72A888', // Green color (緑色)
-        fontSize: 14,
-        fontWeight: 'bold', // Optionally bolded for link emphasis (リンクの強調のためにオプションで太字に)
     }
 });
