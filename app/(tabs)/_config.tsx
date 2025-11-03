@@ -1,12 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-
-import Gauge from '@/components/gauge';
-import Sliderform from '@/components/sliderForm';
+import { useRouter } from 'expo-router';
 import Button from '@/components/button';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export default function Setting() {
+  const router = useRouter();
   return (
     <View style = {styles.container}>
         <View style = {styles.setting}>
@@ -15,7 +14,7 @@ export default function Setting() {
             </View>
             <Text style = {styles.settingText}>赤ちゃん</Text>
         </View>
-        <Button buttonValue='新しい設定を追加'></Button>
+        <Button buttonValue='新しい設定を追加' onPress={() => router.push('/environmentInput')}></Button>
     </View>
   );
 }
@@ -24,7 +23,7 @@ const styles  = StyleSheet.create({
     container: {
     paddingHorizontal:30,
     flex: 1,            // 画面いっぱいに広げる
-    backgroundColor: '#9DC0B2',
+    backgroundColor: '#E9F4EA',
     
   },
   setting: {

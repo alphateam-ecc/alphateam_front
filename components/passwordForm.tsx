@@ -8,8 +8,27 @@ interface passwordValue {
 }
 
 
+
+
 export default function PasswordForm(props:passwordValue){
     const [secure,setSecure] = useState(true);
+    const [password ,setPassword] = useState('');
+    const [error,setError] = useState('');
+
+    const validationPassword = (text: string) =>{
+        setPassword(text)
+        if(!text){
+            setError("パスワードを入力してください");
+        }else if(text.length < 8){
+            setError ("パスワードは8文字以上で入力してください");
+        }else if(!/[A-Z]/.test(text)){
+            setError("英数字を最低1文字以上入力してください");
+        }else if(!/[0-9]/.test(text)){
+            setError("パスワードを最低1文字以上入力してください");
+        }else{
+            setError('');
+        }
+    }
     return(
         <View style={styles.formContainer}>
              <Text>{props.label}</Text>
@@ -17,7 +36,14 @@ export default function PasswordForm(props:passwordValue){
                 <TextInput style={styles.input}
                 secureTextEntry={secure} 
                 ></TextInput>    
-                    <Feather  onPress={() =>setSecure(!secure) } name={secure ? "eye" : "eye-off"} size={24} color="black" style={styles.icon}/>
+                    <Feather 
+                    onPress={() =>setSecure(!secure) } 
+                    name={secure ? "eye" : "eye-off"} 
+                    size={24} 
+                    value = {password}
+                    onChangedText={validationPassword}
+                    color="black" 
+                    style={styles.icon}/>
              </View>
         </View>
     )
@@ -40,6 +66,7 @@ const styles = StyleSheet.create({
         borderWidth:1,
         borderColor:"1f1f1f",
         borderRadius:8,
+        backgroundColor:"#ffffff",
     },
     icon:{
         position:"absolute",

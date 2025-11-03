@@ -1,17 +1,18 @@
 
 import React from "react"
 
-import { View,Text, StyleSheet} from "react-native"
+import { View,Text, StyleSheet,TouchableOpacity} from "react-native"
 
 interface button{
     buttonValue:string;
+    onPress: () => void;
 }
 
-export default function Button({buttonValue}:button){
+export default function Button({buttonValue,onPress}:button){
     return(
-        <View style = {styles.container}>
+        <TouchableOpacity style = {styles.container} onPress={onPress}>
             <Text style={styles.text}>{buttonValue}</Text>
-        </View>   
+        </TouchableOpacity>   
     )
 }
 

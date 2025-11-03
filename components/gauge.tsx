@@ -51,7 +51,6 @@ const Gauge = ({ value = 25, unit = '°C', label = '温度', max = 40 }) => {
           {value}
           <Text style={styles.unit}>{unit}</Text>
         </Text>
-        <Text style={styles.subLabel}>測定器 最大{max}{unit}</Text>
       </View>
     </View>
   );
@@ -64,7 +63,7 @@ const styles = StyleSheet.create({
   },
   textWrapper: {
     position: 'absolute',
-    top: 30,
+    top: 40,
     alignItems: 'center',
 
   },
