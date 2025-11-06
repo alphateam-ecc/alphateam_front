@@ -22,9 +22,9 @@ export default function Setting() {
 const styles  = StyleSheet.create({
     container: {
     paddingHorizontal:30,
+    paddingVertical:92,
     flex: 1,            // 画面いっぱいに広げる
     backgroundColor: '#E9F4EA',
-    
   },
   setting: {
     flexDirection:'row',

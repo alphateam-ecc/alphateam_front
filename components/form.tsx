@@ -1,16 +1,24 @@
+import { useState } from "react";
 import { View,Text,StyleSheet,TextInput } from "react-native"
 
 interface formValue{
     label:string;
     formplaceholder?:string;
+    errorMessage?:string;
+    onChangeText?:(text:string) => void;
 }
-export default function Form({label,formplaceholder}:formValue){
+export default function Form(props:formValue){
+
     return(
         <View style={Styles.form}>
-            <Text style={Styles.label}>{label}</Text>
+            <View style={Styles.labelContainer}>
+                <Text style={Styles.label}>{props.label}</Text>
+                <Text style={Styles.errorMessage}>sssss</Text>
+            </View>
             <TextInput style={Styles.input}
-            placeholder={formplaceholder}
+            placeholder={props.formplaceholder}
             placeholderTextColor="gray"
+            onChangeText={props.onChangeText}
             >
             </TextInput>
         </View>
@@ -28,6 +36,9 @@ const Styles = StyleSheet.create({
         paddingBottom:7,
         fontWeight:"600",
     },
+    labelContainer:{
+        display:"flex",
+    },
     input:{
         padding: 10,
         backgroundColor:"#ffffff",
@@ -35,4 +46,9 @@ const Styles = StyleSheet.create({
         borderWidth:1,
         borderRadius:8,
     },
+    errorMessage:{
+        fontSize:11,
+        color:"#FF1B1B",
+        paddingLeft:8,
+    }
 });

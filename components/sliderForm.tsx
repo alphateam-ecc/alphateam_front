@@ -2,21 +2,29 @@ import React, { useState } from "react"
 import { View,Text,StyleSheet } from "react-native"
 import Slider from "@react-native-community/slider"
 
-
-
 interface sliderValue {
     label:string;
     unit:string;
     min:number;
     max:number;
+    value:number;
+    onChange?: (value:number) =>void;
 }
-export default function SliderForm({label,unit,min,max}:sliderValue){
-    const [value,setValue] = useState(min); //初期値
+export default function SliderForm({label,unit,min,max,value,onChange}:sliderValue){
+    
+    const [internalValue,setInternalValue] = useState(value); //初期値
+
+    const handleChange = (v:number) =>{
+        setInternalValue(v);
+        if(onChange) onChange(v);   //親に通知
+    }
+    
+
     return(
         <View style={styles.container}>
             <Text style={styles.label}>{label}</Text>
             <View style={styles.content}>
-                <Text style={styles.statusValue}>{Math.round(value)}{unit}</Text>
+                <Text style={styles.statusValue}>{Math.round(internalValue)}{unit}</Text>
                 <Slider
                     style={styles.slider}
                     minimumValue={min}
@@ -25,9 +33,8 @@ export default function SliderForm({label,unit,min,max}:sliderValue){
                     minimumTrackTintColor="#81A88B"
                     maximumTrackTintColor="#D9D9D9"
                     thumbTintColor="#D9D9D9"
-                    value = {value}
-                    onValueChange={setValue}
-
+                    value = {internalValue}
+                    onValueChange={handleChange}
                 >
                 </Slider>
             </View>
