@@ -38,6 +38,7 @@ const Styles = StyleSheet.create({
     },
     labelContainer:{
         display:"flex",
+        flexDirection:"row",
     },
     input:{
         padding: 10,
