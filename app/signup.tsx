@@ -8,11 +8,25 @@ import Button from "@/components/button";
 import { router } from "expo-router";
 
 export default function Signup() {
-    // 1. Define state for all input fields (すべての入力フィールドの状態を定義)
+    // すべての入力フィールドの状態を定義
     const [username, setUsername] = useState(''); // ユーザネーム
     const [email, setEmail] = useState(''); // メールアドレス
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
+    const [error,setError] = useState("");
+    
+    //バリデーション
+    const errorValidation = () =>{
+        if(!username){
+            setError("ユーザーネームが入力されていません");
+            false;
+        }else{
+            setError("このユーザーネームは既に使用されています");
+            false;
+        }
+
+        
+    }
 
     // Removed all validation logic. This function now just logs data.
     const handleSignup = () => {
@@ -22,7 +36,7 @@ export default function Signup() {
     };
 
     return(
-        // ScrollView is used to ensure the page is scrollable (画面がスクロール可能であることを保証するためにScrollViewを使用)
+        // 画面がスクロール可能であることを保証するためにScrollViewを使用)
         <ScrollView contentContainerStyle={styles.screenContainer}>
             
             {/* Header: 新規登録 */}
@@ -39,7 +53,6 @@ export default function Signup() {
                 <Form 
                     label="メールアドレス" 
                     formplaceholder="exsample@example.com"
-                    
                 />
 
                 {/* 3. Password Field (パスワード フィールド) - Functional */}
@@ -50,7 +63,6 @@ export default function Signup() {
                 {/* 4. Password Confirmation Field (パスワード 確認フィールド) - Functional */}
                 <PasswordForm 
                     label="パスワード(確認)" 
-
                 />
                 
                 {/* The main action button (主要なアクションボタン) - Functional */}

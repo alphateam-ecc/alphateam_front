@@ -5,46 +5,47 @@ import { View,Text,StyleSheet,TextInput } from "react-native";
 interface passwordValue {
     label:string;
     placeholder?:string;
+    onChangeText?:(text:string) => void;    //親から渡される関数
 }
-
-
-
 
 export default function PasswordForm(props:passwordValue){
     const [secure,setSecure] = useState(true);
     const [password ,setPassword] = useState('');
-    const [error,setError] = useState('');
+    const [errorMessage,setErrorMessage] = useState('');
 
     const validationPassword = (text: string) =>{
+        if(props.onChangeText){
+            props.onChangeText(text);
+        }
         setPassword(text)
         if(!text){
-            setError("パスワードを入力してください");
+            setErrorMessage("パスワードを入力してください");
         }else if(text.length < 8){
-            setError ("パスワードは8文字以上で入力してください");
+            setErrorMessage("パスワードは8文字以上で入力してください");
         }else if(!/[A-Z]/.test(text)){
-            setError("英数字を最低1文字以上入力してください");
+            setErrorMessage("アルファベットを最低1文字以上入力してください");
         }else if(!/[0-9]/.test(text)){
-            setError("パスワードを最低1文字以上入力してください");
+            setErrorMessage("数字を最低1文字以上入力してください");
         }else{
-            setError('');
+            setErrorMessage('');
         }
     }
     return(
         <View style={styles.formContainer}>
-             <Text>{props.label}</Text>
-             <View style={styles.form}>
-                <TextInput style={styles.input}
-                secureTextEntry={secure} 
-                ></TextInput>    
+            <View style={styles.labelContainer}>
+                <Text style={styles.label}>{props.label}</Text>
+                <Text style={styles.errorMessage}>{errorMessage}</Text>
+            </View>
+            <View style={styles.form}>
+                <TextInput style={styles.input} secureTextEntry={secure} value={password} onChangeText={setPassword} placeholder={props.placeholder}></TextInput>    
                     <Feather 
-                    onPress={() =>setSecure(!secure) } 
-                    name={secure ? "eye" : "eye-off"} 
-                    size={24} 
-                    value = {password}
-                    onChangedText={validationPassword}
-                    color="black" 
-                    style={styles.icon}/>
-             </View>
+                        onPress={() =>setSecure(!secure) } 
+                        name={secure ? "eye-off" : "eye"} 
+                        size={24} 
+                        color="black" 
+                        style={styles.icon}
+                    />
+            </View>
         </View>
     )
 }
@@ -57,10 +58,16 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         alignItems:"center",
     },
+    labelContainer:{
+        display:"flex",
+        flexDirection:"row",
+        alignItems:"center",
+         paddingBottom:7,
+    },
     label:{
+        color:"#81A88B",
         fontSize:14,
         paddingLeft:4,
-        paddingBottom:7,
         fontWeight:"600",
     },
     input:{
@@ -77,5 +84,10 @@ const styles = StyleSheet.create({
     icon:{
         position:"absolute",
         right:10,
+    },
+    errorMessage:{
+        fontSize:11,
+        color:"#FF1B1B",
+        paddingLeft:8,
     }
 });

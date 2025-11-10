@@ -3,7 +3,7 @@ import { Text , View,StyleSheet } from "react-native";
 import Gauge from "@/components/gauge";
 import Button from "@/components/button";
 import { LinearGradient } from 'expo-linear-gradient';
-//import Chart from "@/components/chart";
+import Chart from "@/components/chart";
 import { router } from "expo-router";
 
 
@@ -27,7 +27,7 @@ export default function Dashboard(){
                 buttonValue="設定を変更する"
                 onPress={() => router.push("/(tabs)/_config")}    
             ></Button>
-            
+            <Chart ></Chart>
         </LinearGradient>
     )
 }
