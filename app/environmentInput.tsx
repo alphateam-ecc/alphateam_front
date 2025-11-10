@@ -15,9 +15,6 @@ export default function EnvironmentInput() {
     const [co2,setCo2] = useState(350);
 
     const handleSubmit = () =>{
-        if(!validateTitle){
-            return;
-        }
         const formData =[
             title,
             temperature,
@@ -37,12 +34,8 @@ export default function EnvironmentInput() {
     const validateTitle = () =>{
         if(!title){
             setTitleError("タイトルを入力してください");
-            return false;
         }else if(title.length <= 20){
-            setTitle("タイトルは20文字以内で入力してください");
-            return false;
-        }else{
-            return true;
+            setTitle("タイトルは20文字以内で入力してください")
         }
     }
 
