@@ -10,12 +10,12 @@ interface formValue{
 export default function Form(props:formValue){
 
     return(
-        <View style={Styles.form}>
-            <View style={Styles.labelContainer}>
-                <Text style={Styles.label}>{props.label}</Text>
-                <Text style={Styles.errorMessage}>sssss</Text>
+        <View style={styles.form}>
+            <View style={styles.labelContainer}>
+                <Text style={styles.label}>{props.label}</Text>
+                <Text style={styles.errorMessage}>{props.errorMessage}</Text>
             </View>
-            <TextInput style={Styles.input}
+            <TextInput style={styles.input}
             placeholder={props.formplaceholder}
             placeholderTextColor="gray"
             onChangeText={props.onChangeText}
@@ -25,20 +25,22 @@ export default function Form(props:formValue){
     )
 }
 
-const Styles = StyleSheet.create({
+const styles = StyleSheet.create({
     form:{
         width: "100%",
         paddingBottom:21,
     },
-    label:{
-        fontSize:14,
-        paddingLeft:4,
-        paddingBottom:7,
-        fontWeight:"600",
-    },
     labelContainer:{
         display:"flex",
         flexDirection:"row",
+        alignItems:"center",
+         paddingBottom:7,
+    },
+    label:{
+        color:"#81A88B",
+        fontSize:14,
+        paddingLeft:4,
+        fontWeight:"600",
     },
     input:{
         padding: 10,

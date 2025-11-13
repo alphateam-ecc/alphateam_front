@@ -1,21 +1,23 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import Button from '@/components/button';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import EnvPreset from '@/components/envpreset';
 
 export default function Setting() {
   const router = useRouter();
   return (
-    <View style = {styles.container}>
-        <View style = {styles.setting}>
-            <View style = {styles.iconContainer}>
-                <MaterialIcons name="eco" size={24} color="#81A88B"  />
-            </View>
-            <Text style = {styles.settingText}>赤ちゃん</Text>
-        </View>
+    <ScrollView style = {styles.container}>
+        <ScrollView>
+          <EnvPreset title="赤ちゃん" icon="child-care" ></EnvPreset>
+          <EnvPreset title="省エネモード" icon="eco" ></EnvPreset>
+          <EnvPreset title="お休み" icon="bedtime" ></EnvPreset>
+          <EnvPreset title="赤ちゃん" icon="child-care" ></EnvPreset>
+        </ScrollView>
         <Button buttonValue='新しい設定を追加' onPress={() => router.push('/environmentInput')}></Button>
-    </View>
+    </ScrollView>
+    
   );
 }
 
@@ -26,21 +28,5 @@ const styles  = StyleSheet.create({
     flex: 1,            // 画面いっぱいに広げる
     backgroundColor: '#E9F4EA',
   },
-  setting: {
-    flexDirection:'row',
-    paddingVertical:12,
-    paddingHorizontal:12,
-    borderRadius:16,
-    backgroundColor:'#FFFFFF',
-  },
-  settingText:{
-    fontSize:24,
-  },
-  iconContainer :{
-    backgroundColor:'#E9F4EA',
-    padding:8,
-    borderRadius:90,
-    marginRight:8,
-  }
 })
 
