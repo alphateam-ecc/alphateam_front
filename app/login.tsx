@@ -10,29 +10,25 @@ export default function Login(){
     const [mail,setMail] = useState("");
     const [errorMail,setMailError] = useState("");
     const [password ,setPassword] = useState('');
-    const [errorpassword,setpasswordError] = useState('');
+    const [errorpassword,setPasswordError] = useState('');
+
+
 
     const errorValidation = () =>{
         let isValid:boolean = true;
         if(!mail){
-            setMailError("メールアドレスが入力されていません")
+            setMailError("メールアドレスが入力されていません");
             isValid = false;
         }else{
             setMailError("");
         }
 
         if(!password){
-            setpasswordError("パスワードを入力してください");
-        }else if(password.length < 8){
-            setpasswordError("パスワードは8文字以上で入力してください");
-        }else if(!/[A-Z]/.test(password)){
-            setpasswordError("アルファベットを最低1文字以上入力してください");
-        }else if(!/[0-9]/.test(password)){
-            setpasswordError("数字を最低1文字以上入力してください");
+            setPasswordError("パスワードを入力してください");
+            isValid = false;
         }else{
-            setpasswordError('');
+            setPasswordError("");
         }
-
         return isValid
     }
 
@@ -45,15 +41,15 @@ export default function Login(){
             mail,
             password
         ]
-        Alert.alert(JSON.stringify(formData,null,2))
-        router.replace('/(tabs)/_home')
+        Alert.alert(JSON.stringify(formData,null,2));
+        router.replace('/(tabs)/_home');
     }
 
     return(
         <View style={styles.container}>
             <Text style={styles.headerText}>ログイン</Text>
             <Form label="メールアドレス" onChangeText={setMail} errorMessage={errorMail}></Form>
-            <PasswordForm label="パスワード"></PasswordForm>
+            <PasswordForm label="パスワード" onChangeText={setPassword} errorMessage={errorpassword}></PasswordForm>
             <Button buttonValue="ログイン" onPress={handleSubmit}></Button>
             <Text style={styles.baseLinkText}>アカウントをお持ちでないですか？<Text style={styles.greenLinkText} onPress={() => router.replace("/signup")}>新規登録</Text></Text>
         </View>

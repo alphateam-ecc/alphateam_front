@@ -26,7 +26,7 @@ export default function Chart() {
     },[]);
 
     return(
-        <View>
+        <View style={styles.container}>
             <LineChart
                 data={{
                     labels: labels,
@@ -36,8 +36,14 @@ export default function Chart() {
                             color: () =>"#539798",
                             strokeWidth:1
                         },
+                         {
+                            data:humidityData,
+                            color: () =>"#985353ff",
+                            strokeWidth:1
+                        },
+                        
                     ],
-                    legend:["温度(℃)"]
+                    legend:["温度(℃)","湿度(%)"]
                 }}
                 width={Dimensions.get("window").width -32}
                 height={250}
@@ -50,6 +56,11 @@ export default function Chart() {
                     labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                     propsForDots: {r: "3",strokeWidth: "1",},
                 }} 
+                style={{
+                  paddingVertical:22,
+                  borderRadius:8,
+                }}
+                fromZero={true}
             />
         </View>
   )
@@ -57,18 +68,6 @@ export default function Chart() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 40,
-    backgroundColor: "#fff",
-  },
-  title: {
-    textAlign: "center",
-    fontSize: 18,
-    marginBottom: 20,
-  },
-  chart: {
-    marginVertical: 8,
-    borderRadius: 16,
-    alignSelf: "center",
+    borderRadius:8,
   },
 });

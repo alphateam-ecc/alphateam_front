@@ -9,31 +9,62 @@ import { router } from "expo-router";
 
 export default function Signup() {
     // すべての入力フィールドの状態を定義
-    const [username, setUsername] = useState(''); // ユーザネーム
-    const [email, setEmail] = useState(''); // メールアドレス
-    const [password, setPassword] = useState('');
-    const [passwordConfirm, setPasswordConfirm] = useState('');
-    const [error,setError] = useState("");
+    // const [username, setUsername] = useState(''); // ユーザネーム
+    // const [email, setEmail] = useState(''); // メールアドレス
+    // const [password, setPassword] = useState('');  //パスワード
+    // const [passwordConfirm, setPasswordConfirm] = useState(''); //パスワード確認
+    // const [error,setError] = useState("");
     
+    const [formData,setFormData] = useState({username:"",email:"",password:"",passwordConfirm:""})
+    const [error,setError] = useState({username:"",email:"",password:"",passwordConfirm:""});
+
+
     //バリデーション
     const errorValidation = () =>{
-        if(!username){
-            setError("ユーザーネームが入力されていません");
-            false;
+        const newError = {username:"",email:"",password:"",passwordConfirm:""};
+        let isValid:boolean = true;
+        if(!formData.username){
+            newError.username = "ユーザネームが入力されていません";
+            isValid = false;
+        }if(/[ぁ-んァ-ヶ一-龥々]/.test(formData.passwordConfirm)){
+            newError.username ="ユーザーネームに平仮名は入力できません"
+            isValid = false;
         }else{
-            setError("このユーザーネームは既に使用されています");
-            false;
+            newError.username ="";
+            isValid = true;
         }
 
-        
-    }
+        if(!formData.passwordConfirm){
+            newError.passwordConfirm = "パスワードが入力されていません";
+            isValid = false;
+        }else if(formData.passwordConfirm.length < 8){
+            newError.passwordConfirm ="パスワードは8文字以上で入力してください";
+            isValid = false;
+        }else if(!/[A-Z]/.test(formData.passwordConfirm)){
+            newError.passwordConfirm ="アルファベットを最低1文字以上入力してください";
+            isValid = false;
+        }else if(!/[0-9]/.test(formData.passwordConfirm)){
+            newError.passwordConfirm = "数字を最低1文字以上入力してください";
+            isValid = false;
+        }else if(formData.password != formData.passwordConfirm ){
+            newError.passwordConfirm = "パスワードが異なります";
+            isValid = false;
+        }else{
+            newError.passwordConfirm = "";
+            isValid = true;
+        }
 
-    // Removed all validation logic. This function now just logs data.
-    const handleSignup = () => {
-        // --- Placeholder for SUCCESS: API call goes here ---
-        console.log('Signup data:', { username, email, password });
-        Alert.alert('確認', 'データ送信をシミュレーションします。'); 
-    };
+        if(formData.password != formData.passwordConfirm ){
+            newError.passwordConfirm = "パスワードが異なります";
+            isValid = false;
+        }else{
+            newError.passwordConfirm = "";
+            isValid = true;
+        }
+
+        setError(newError);
+        return isValid;
+    }
 
     return(
         // 画面がスクロール可能であることを保証するためにScrollViewを使用)
@@ -58,6 +89,7 @@ export default function Signup() {
                 {/* 3. Password Field (パスワード フィールド) - Functional */}
                 <PasswordForm 
                     label="パスワード" 
+            
                 />
 
                 {/* 4. Password Confirmation Field (パスワード 確認フィールド) - Functional */}
