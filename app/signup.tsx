@@ -89,7 +89,6 @@ export default function Signup() {
                 {/* 3. Password Field (パスワード フィールド) - Functional */}
                 <PasswordForm 
                     label="パスワード" 
-            
                 />
 
                 {/* 4. Password Confirmation Field (パスワード 確認フィールド) - Functional */}

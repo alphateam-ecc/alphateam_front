@@ -1,5 +1,5 @@
 import {useState ,useEffect} from "react"
-import { View, Dimensions ,StyleSheet } from "react-native"
+import { View, Dimensions ,StyleSheet,ActivityIndicator } from "react-native"
 import { LineChart } from "react-native-chart-kit"
 
 
@@ -24,6 +24,14 @@ export default function Chart() {
         setHumidityData(humidArray);
         setLabels(labelArray);
     },[]);
+
+    if (temperatureData.length === 0 || humidityData.length === 0 || labels.length === 0) {
+        return (
+            <View style={[styles.container, {height: 250, justifyContent: 'center', alignItems: 'center'}]}>
+                <ActivityIndicator size="large" color="#0000ff" />
+            </View>
+        );
+    }
 
     return(
         <View style={styles.container}>
