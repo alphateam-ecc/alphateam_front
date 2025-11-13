@@ -5,7 +5,6 @@ import 'react-native-reanimated';
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { Redirect } from 'expo-router';
-
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export const unstable_settings = {

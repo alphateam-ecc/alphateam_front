@@ -13,7 +13,6 @@ export default function EnvironmentInput() {
     const [temperature,setTemperature] = useState(19);
     const [humidity,setHumidity] = useState(50);
 
-
     //フォーム送信
     const handleSubmit = () =>{
         if(!validateTitle()){
