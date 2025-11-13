@@ -78,22 +78,30 @@ export default function Signup() {
                 {/* 1. Username Field (ユーザネーム フィールド) - Functional */}
                 <Form 
                     label="ユーザネーム" 
+                    onChangeText={(text) => setFormData({...formData,username:text})}
+                    errorMessage={error.username}
                 />
 
                 {/* 2. Email Field (メールアドレス フィールド) - Functional */}
                 <Form 
                     label="メールアドレス" 
                     formplaceholder="exsample@example.com"
+                    onChangeText={(text) => setFormData({...formData,email:text})}
+                    errorMessage={error.email}
                 />
 
                 {/* 3. Password Field (パスワード フィールド) - Functional */}
                 <PasswordForm 
                     label="パスワード" 
+                    onChangeText={(text)=>setFormData({...formData,password:text})}
+                    errorMessage={error.password}
                 />
 
                 {/* 4. Password Confirmation Field (パスワード 確認フィールド) - Functional */}
                 <PasswordForm 
                     label="パスワード(確認)" 
+                    onChangeText={(text) => setFormData({...formData,passwordConfirm:text})}
+                    errorMessage={error.passwordConfirm}
                 />
                 
                 {/* The main action button (主要なアクションボタン) - Functional */}
