@@ -42,7 +42,7 @@ export default function Login(){
             password
         ]
         Alert.alert(JSON.stringify(formData,null,2));
-        router.replace('/(tabs)/_home');
+        router.replace('/');
     }
 
     return(

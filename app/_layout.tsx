@@ -14,6 +14,9 @@ export const unstable_settings = {
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
+
+  //Stack.Screenに追加すればルーティングできます！！
+  //EX: <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>

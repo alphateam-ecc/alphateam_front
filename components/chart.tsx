@@ -28,7 +28,7 @@ export default function Chart() {
     if (temperatureData.length === 0 || humidityData.length === 0 || labels.length === 0) {
         return (
             <View style={[styles.container, {height: 250, justifyContent: 'center', alignItems: 'center'}]}>
-                <ActivityIndicator size="large" color="#0000ff" />
+                <ActivityIndicator size="large" color="white" />
             </View>
         );
     }
@@ -66,7 +66,7 @@ export default function Chart() {
                 }} 
                 style={{
                   paddingVertical:22,
-                  borderRadius:8,
+                  borderRadius:16,
                 }}
                 fromZero={true}
             />

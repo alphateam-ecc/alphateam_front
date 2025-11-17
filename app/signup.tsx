@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from "react-native";
+import axios from "axios";
+
 
 // Import your components from the correct path
 import Form from "@/components/form"; 
 import PasswordForm from "@/components/passwordForm";
 import Button from "@/components/button"; 
 import { router } from "expo-router";
+import useAPI from "@/hooks/useAPI";
 
 export default function Signup() {
     // すべての入力フィールドの状態を定義
@@ -15,8 +18,16 @@ export default function Signup() {
     // const [passwordConfirm, setPasswordConfirm] = useState(''); //パスワード確認
     // const [error,setError] = useState("");
     
+
+    
     const [formData,setFormData] = useState({username:"",email:"",password:"",passwordConfirm:""})
-    const [error,setError] = useState({username:"",email:"",password:"",passwordConfirm:""});
+    const [errorMessage,setErrorMessage] = useState({username:"",email:"",password:"",passwordConfirm:""});
+
+    //useAPI利用
+    const {data,error,loading,fetchData} = useAPI<{message:string}>(
+        "http:",
+        "POST"
+    )
 
 
     //バリデーション
@@ -26,45 +37,42 @@ export default function Signup() {
         if(!formData.username){
             newError.username = "ユーザネームが入力されていません";
             isValid = false;
-        }if(/[ぁ-んァ-ヶ一-龥々]/.test(formData.passwordConfirm)){
-            newError.username ="ユーザーネームに平仮名は入力できません"
-            isValid = false;
-        }else{
-            newError.username ="";
-            isValid = true;
         }
 
         if(!formData.passwordConfirm){
-            newError.passwordConfirm = "パスワードが入力されていません";
+            newError.password = "パスワードが入力されていません";
             isValid = false;
         }else if(formData.passwordConfirm.length < 8){
-            newError.passwordConfirm ="パスワードは8文字以上で入力してください";
+            newError.password ="パスワードは8文字以上で入力してください";
             isValid = false;
-        }else if(!/[A-Z]/.test(formData.passwordConfirm)){
-            newError.passwordConfirm ="アルファベットを最低1文字以上入力してください";
+        }else if(!/^(?=.*[A-Z])(?=.*[a-z]).+$/.test(formData.passwordConfirm)){
+            newError.password ="アルファベットを最低1文字以上入力してください";
             isValid = false;
         }else if(!/[0-9]/.test(formData.passwordConfirm)){
             newError.passwordConfirm = "数字を最低1文字以上入力してください";
             isValid = false;
         }else if(formData.password != formData.passwordConfirm ){
-            newError.passwordConfirm = "パスワードが異なります";
+            newError.password = "パスワードが異なります";
             isValid = false;
-        }else{
-            newError.passwordConfirm = "";
-            isValid = true;
         }
 
         if(formData.password != formData.passwordConfirm ){
             newError.passwordConfirm = "パスワードが異なります";
             isValid = false;
-        }else{
-            newError.passwordConfirm = "";
-            isValid = true;
         }
 
-        setError(newError);
+        setErrorMessage(newError);
         return isValid;
     }
+
+    const handlSubmit = async() =>{
+        if(errorValidation()){
+            await fetchData(formData);
+            if(data){
+                router.replace("/login");
+            }
+        }
+    };
 
     return(
         // 画面がスクロール可能であることを保証するためにScrollViewを使用)
@@ -78,8 +86,9 @@ export default function Signup() {
                 {/* 1. Username Field (ユーザネーム フィールド) - Functional */}
                 <Form 
                     label="ユーザネーム" 
+                    
                     onChangeText={(text) => setFormData({...formData,username:text})}
-                    errorMessage={error.username}
+                    errorMessage={errorMessage.username}
                 />
 
                 {/* 2. Email Field (メールアドレス フィールド) - Functional */}
@@ -87,28 +96,27 @@ export default function Signup() {
                     label="メールアドレス" 
                     formplaceholder="exsample@example.com"
                     onChangeText={(text) => setFormData({...formData,email:text})}
-                    errorMessage={error.email}
+                    errorMessage={errorMessage.email}
                 />
 
                 {/* 3. Password Field (パスワード フィールド) - Functional */}
                 <PasswordForm 
                     label="パスワード" 
                     onChangeText={(text)=>setFormData({...formData,password:text})}
-                    errorMessage={error.password}
+                    errorMessage={errorMessage.password}
                 />
 
                 {/* 4. Password Confirmation Field (パスワード 確認フィールド) - Functional */}
                 <PasswordForm 
                     label="パスワード(確認)" 
                     onChangeText={(text) => setFormData({...formData,passwordConfirm:text})}
-                    errorMessage={error.passwordConfirm}
+                    errorMessage={errorMessage.passwordConfirm}
                 />
                 
                 {/* The main action button (主要なアクションボタン) - Functional */}
                 <Button 
                     buttonValue="新規登録"
-                    onPress={() => router.replace("/login")} 
-                    
+                    onPress={handlSubmit} 
                 />
 
                 {/* Link back to the login page (ログインページへのリンク) - Styled and Functional */}

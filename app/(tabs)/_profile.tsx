@@ -29,4 +29,3 @@ const styles  = StyleSheet.create({
     backgroundColor: '#E9F4EA',
   },
 })
-
