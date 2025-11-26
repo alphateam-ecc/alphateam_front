@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import Button from "@/components/button";
 import SliderForm from "@/components/sliderForm";
 import Form from "@/components/form";
+import useAPI from "@/hooks/useAPI";
 export default function EnvironmentInput() {
     const router = useRouter();
 
@@ -13,26 +14,36 @@ export default function EnvironmentInput() {
     const [temperature,setTemperature] = useState(19);
     const [humidity,setHumidity] = useState(50);
 
+    const {data,error,loading,fetchData} = useAPI<{message:string}>(
+        "http:",
+        "POST"
+    );
+
     //フォーム送信
-    const handleSubmit = () =>{
-        if(!validateTitle()){
-            return;
-        }
+    const handleSubmit = async() =>{
+        //送信するデータを格納
         const formData =[
             title,
             temperature,
             humidity,
         ]
 
-        //debug
-        Alert.alert("送信データ",JSON.stringify(formData,null,2));
+        if(errorValidation()){
+            await fetchData(formData);
 
-        //リダイレクト
-        router.push('/(tabs)/_home');
+            //データがあればリダイレクト
+            // if(data){
+            //      router.push('/');
+            // }
+
+            //debug
+            Alert.alert("送信データ",JSON.stringify(formData,null,2));
+            router.push('/');
+        }
     }
 
     //バリデーションチェック
-    const validateTitle = () =>{
+    const errorValidation = () =>{
         if(!title){
             setTitleError("タイトルを入力してください");
             return false;

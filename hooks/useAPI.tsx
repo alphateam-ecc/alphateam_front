@@ -34,6 +34,7 @@ const useAPI = <T,D =any >(
                 data:requestData,
             });
             setData(responce.data as unknown as T);
+            return responce.data;
         }catch(e:unknown){
             setError("APIエラー");
         }finally{

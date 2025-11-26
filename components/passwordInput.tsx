@@ -9,7 +9,7 @@ interface passwordValue {
     errorMessage?:string;
 }
 
-export default function PasswordForm(props:passwordValue){
+export default function PasswordInput(props:passwordValue){
     const [secure,setSecure] = useState(true);
     
 

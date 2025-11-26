@@ -23,14 +23,17 @@ export default function Dashboard(){
                     <Text style={{color:"#FFFFFF",fontSize:24,fontWeight:"bold", }}>810ppm</Text>
                 </View>
             </View>
+
             <View style={styles.configMode}>
-                <Text>設定モード</Text>
-                <Text>あかちゃん</Text>
+                <View>
+                    <Text style={{fontSize:11, color:"#fff"}}>設定モード</Text>
+                    <Text style={{fontSize:20, color:"#fff",fontWeight:"700"}}>あかちゃん</Text>
+                </View>
             </View>
             <Button 
-                buttonValue="設定を変更する"
-                onPress={() => router.push("/(tabs)/_config")}    
-            ></Button>
+                    buttonValue="設定を変更する"
+                    onPress={() => router.push("/(tabs)/_profile")}    
+                ></Button>
             <Chart ></Chart>
         </LinearGradient>
     )
@@ -58,6 +61,12 @@ const styles = StyleSheet.create({
         
     },
     configMode:{
+      display:"flex",
+      flexDirection:"row",
       backgroundColor:"rgba(255,255,255,0.3)",
+      borderRadius:8,
+      paddingVertical:18,
+      paddingHorizontal:16,
     }
+
 });

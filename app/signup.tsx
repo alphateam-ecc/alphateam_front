@@ -5,27 +5,19 @@ import axios from "axios";
 
 // Import your components from the correct path
 import Form from "@/components/form"; 
-import PasswordForm from "@/components/passwordForm";
+import PasswordForm from "@/components/passwordInput";
 import Button from "@/components/button"; 
 import { router } from "expo-router";
 import useAPI from "@/hooks/useAPI";
 
 export default function Signup() {
-    // すべての入力フィールドの状態を定義
-    // const [username, setUsername] = useState(''); // ユーザネーム
-    // const [email, setEmail] = useState(''); // メールアドレス
-    // const [password, setPassword] = useState('');  //パスワード
-    // const [passwordConfirm, setPasswordConfirm] = useState(''); //パスワード確認
-    // const [error,setError] = useState("");
-    
-
-    
+      
     const [formData,setFormData] = useState({username:"",email:"",password:"",passwordConfirm:""})
     const [errorMessage,setErrorMessage] = useState({username:"",email:"",password:"",passwordConfirm:""});
 
     //useAPI利用
     const {data,error,loading,fetchData} = useAPI<{message:string}>(
-        "http:",
+        "http://localhost:3000/app/register",
         "POST"
     )
 
@@ -45,9 +37,6 @@ export default function Signup() {
         }else if(formData.passwordConfirm.length < 8){
             newError.password ="パスワードは8文字以上で入力してください";
             isValid = false;
-        }else if(!/^(?=.*[A-Z])(?=.*[a-z]).+$/.test(formData.passwordConfirm)){
-            newError.password ="アルファベットを最低1文字以上入力してください";
-            isValid = false;
         }else if(!/[0-9]/.test(formData.passwordConfirm)){
             newError.passwordConfirm = "数字を最低1文字以上入力してください";
             isValid = false;
@@ -65,11 +54,13 @@ export default function Signup() {
         return isValid;
     }
 
+
+    //送信処理
     const handlSubmit = async() =>{
         if(errorValidation()){
-            await fetchData(formData);
-            if(data){
-                router.replace("/login");
+            const result = await fetchData(formData);
+            if(result){
+                router.replace("/login");   
             }
         }
     };

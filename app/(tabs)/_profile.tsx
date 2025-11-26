@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet,ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import Button from '@/components/button';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import EnvPreset from '@/components/envpreset';
 
 export default function Setting() {

@@ -1,16 +1,33 @@
 import { useState } from "react";
+import { router } from "expo-router";
 import { View,Text,StyleSheet, Alert } from "react-native";
+import axios, { isAxiosError }  from "axios";
+
 
 import Form from "@/components/form";
-import PasswordForm from "@/components/passwordForm";
+import PasswordForm from "@/components/passwordInput";
 import Button from "@/components/button";
-import { router } from "expo-router";
+
+
+//レスポンスの型定義
+interface LoginResponse {
+    message :string;
+    token:string;
+
+}
+// エラーレスポンスの型定義
+interface errorResponse{
+    message:string;
+}
+
+
 
 export default function Login(){
     const [mail,setMail] = useState("");
     const [errorMail,setMailError] = useState("");
     const [password ,setPassword] = useState('');
     const [errorpassword,setPasswordError] = useState('');
+    const [error,setError] = useState<string  | null>(null);
 
 
 
@@ -32,17 +49,32 @@ export default function Login(){
         return isValid
     }
 
-    const handleSubmit  = () =>{
-        if(!errorValidation()){
-            return;
-        }
+    const handlLoginn = async () =>{
 
-        const formData =[
-            mail,
-            password
-        ]
-        Alert.alert(JSON.stringify(formData,null,2));
-        router.replace('/');
+        try{
+             if(!errorValidation()){
+                return;
+            }
+            const response = await axios.post('http://localhost:3000/app/login',{
+                email:mail,
+                password:password
+            });
+
+            if(response.data.token){
+                localStorage.setItem("accessToken",response.data.token);
+            }
+            router.replace('/');
+
+         }catch(err:unknown){
+            if(isAxiosError(err) && err.response?.data){
+                const errorData = err.response.data as errorResponse
+                setError(errorData.message || "ログインに失敗しました");
+            }else{
+                setError("ログイン中にエラーが発生しました")
+            }
+         }
+       
+
     }
 
     return(
@@ -50,7 +82,7 @@ export default function Login(){
             <Text style={styles.headerText}>ログイン</Text>
             <Form label="メールアドレス" onChangeText={setMail} errorMessage={errorMail}></Form>
             <PasswordForm label="パスワード" onChangeText={setPassword} errorMessage={errorpassword}></PasswordForm>
-            <Button buttonValue="ログイン" onPress={handleSubmit}></Button>
+            <Button buttonValue="ログイン" onPress={handlLoginn}></Button>
             <Text style={styles.baseLinkText}>アカウントをお持ちでないですか？<Text style={styles.greenLinkText} onPress={() => router.replace("/signup")}>新規登録</Text></Text>
         </View>
     )
