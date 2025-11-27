@@ -15,7 +15,7 @@ export default function EnvironmentInput() {
     const [humidity,setHumidity] = useState(50);
 
     const {data,error,loading,fetchData} = useAPI<{message:string}>(
-        "http:",
+        "http://localhost:3000/Profiles",
         "POST"
     );
 
@@ -29,16 +29,10 @@ export default function EnvironmentInput() {
         ]
 
         if(errorValidation()){
-            await fetchData(formData);
-
-            //データがあればリダイレクト
-            // if(data){
-            //      router.push('/');
-            // }
-
-            //debug
-            Alert.alert("送信データ",JSON.stringify(formData,null,2));
-            router.push('/');
+            const result = await fetchData(formData);
+            if(result){
+                router.push("/")
+            }
         }
     }
 

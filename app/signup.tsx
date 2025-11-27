@@ -1,5 +1,5 @@
 import React, { use, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import axios from "axios";
 
 
@@ -111,7 +111,12 @@ export default function Signup() {
                 />
 
                 {/* Link back to the login page (ログインページへのリンク) - Styled and Functional */}
-                <Text style={styles.baseLinkText}>アカウントをお持ちですか?<Text style={styles.greenLinkText} onPress={() => router.replace("/login")}>新規登録</Text></Text> 
+                <Text style={styles.baseLinkText}>
+                    アカウントをお持ちですか?
+                    <TouchableOpacity onPress={() => router.push("/login")}>
+                        <Text style={styles.greenLinkText}>新規登録</Text>
+                    </TouchableOpacity>
+                </Text> 
             </View>
         </ScrollView>
     )
@@ -158,5 +163,6 @@ const styles = StyleSheet.create({
     // Style for the "新規登録" link text, making it green (緑色のリンクテキストのスタイル。「新規登録」を緑色にする)
     greenLinkText: {
         color: '#72A888', // Green color (緑色)
+        paddingLeft:8,
     }
 });
